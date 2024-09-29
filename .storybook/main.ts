@@ -1,7 +1,19 @@
 import type { StorybookConfig } from '@storybook/react-vite';
 
 const config: StorybookConfig = {
-	stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
+	framework: '@storybook/react-vite',
+
+	stories: [
+		// prettier-ignore
+		'../src/**/*.mdx',
+		'../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'
+	],
+
+	staticDirs: [
+		// prettier-ignore
+		'../src/assets'
+	],
+
 	addons: [
 		// prettier-ignore
 		"@storybook/addon-onboarding",
@@ -10,10 +22,7 @@ const config: StorybookConfig = {
 		'@chromatic-com/storybook',
 		'@storybook/addon-interactions',
 		'@storybook/addon-themes'
-	],
-	framework: {
-		name: '@storybook/react-vite',
-		options: {}
-	}
+	]
 };
+
 export default config;

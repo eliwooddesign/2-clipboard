@@ -6,12 +6,6 @@ import dts from 'vite-plugin-dts';
 import { peerDependencies } from './package.json';
 
 export default defineConfig({
-	plugins: [
-		// prettier-ignore
-		react(),
-		dts({ rollupTypes: true })
-	],
-
 	build: {
 		target: 'esnext',
 		minify: false,
@@ -25,5 +19,12 @@ export default defineConfig({
 		rollupOptions: {
 			external: ['react/jsx-runtime', ...Object.keys(peerDependencies)]
 		}
-	}
+	},
+
+	plugins: [
+		react(),
+		dts({
+			rollupTypes: true
+		})
+	]
 });
