@@ -1,0 +1,70 @@
+html {
+	color-scheme: dark light;
+}
+
+body {
+	font-family: "-apple-system, BlinkMacSystemFont, 'Segoe UI (Custom)', Roboto, 'Helvetica Neue', 'Open Sans (Custom)', system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'";
+}
+
+.app {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+
+	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
+	text-align: center;
+}
+
+.app a {
+	color: hsl(270, 100%, 75%);
+	text-decoration: none;
+}
+
+.app a:hover {
+	color: hsl(270, 100%, 85%);
+}
+
+.app p a {
+	font-weight: 500;
+}
+
+.app h1 {
+	font-size: 3.2rem;
+}
+
+.app img {
+	height: 6rem;
+	padding: 1.5rem;
+	will-change: filter;
+	transition: filter 300ms;
+}
+
+.app img:hover {
+	filter: drop-shadow(0 0 2em #646cffaa);
+}
+
+.react:hover {
+	filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.react {
+		animation: logo-spin infinite 20s linear;
+	}
+}

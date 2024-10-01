@@ -1,20 +1,19 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
 
-import { Button } from './Button';
+import { Button } from '.';
 
 // *
-// * BASE
+// * Metadata
 // * ==================================== * //
 
 const meta = {
-	title: 'Component/Button',
+	title: 'Button',
+
 	component: Button,
-	argTypes: {
-		backgroundColor: {
-			control: 'color'
-		}
-	},
+
+	argTypes: {},
+
 	args: {
 		onClick: fn()
 	}
@@ -23,31 +22,19 @@ const meta = {
 export default meta;
 
 // *
-// * VARIANTS
+// * Stories
 // * ==================================== * //
 
 type Story = StoryObj<typeof meta>;
 
-export const Primary: Story = {
+export const Block: Story = {
 	args: {
-		primary: true
+		copyValue: 'This is a block button'
 	}
 };
 
-export const Secondary: Story = {
+export const Inline: Story = {
 	args: {
-		primary: false
-	}
-};
-
-export const Large: Story = {
-	args: {
-		size: 'large'
-	}
-};
-
-export const Small: Story = {
-	args: {
-		size: 'small'
+		copyValue: 'This is an inline button'
 	}
 };

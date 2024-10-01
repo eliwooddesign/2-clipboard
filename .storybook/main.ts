@@ -6,7 +6,8 @@ const config: StorybookConfig = {
 	stories: [
 		// prettier-ignore
 		'../src/**/*.mdx',
-		'../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'
+		'../src/**/*.stories.@(js|jsx|mjs|ts|tsx)',
+		'../src/**/stories.@(js|jsx|mjs|ts|tsx)'
 	],
 
 	staticDirs: [
@@ -22,7 +23,12 @@ const config: StorybookConfig = {
 		'@chromatic-com/storybook',
 		'@storybook/addon-interactions',
 		'@storybook/addon-themes'
-	]
+	],
+
+	viteFinal: (config) => {
+		// modify the Vite config here
+		return config;
+	}
 };
 
 export default config;

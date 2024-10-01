@@ -1,0 +1,44 @@
+@layer reset {
+	.button,
+	.button * {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+
+	.button {
+		font-family: inherit;
+		font-size: 14px;
+	}
+}
+
+.button {
+	position: relative;
+
+	background: none;
+	border: none;
+	border-radius: 0.2rem;
+	outline: 2px solid gray;
+
+	padding: 0.5rem;
+
+	&:hover {
+		cursor: pointer;
+	}
+}
+
+.button rect,
+.button path {
+	stroke-width: 2px;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+	stroke: currentColor;
+	fill: transparent;
+}
+
+.delete_me {
+	position: absolute;
+	bottom: 150%;
+	left: 50%;
+	transform: translateX(-50%);
+}
