@@ -1,0 +1,10 @@
+.icon {
+	stroke-width: 2px;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+	stroke: currentColor;
+	fill: transparent;
+
+	width: 100%;
+	height: 100%;
+}

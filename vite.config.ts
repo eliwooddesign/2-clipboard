@@ -1,6 +1,10 @@
 import { join, resolve } from 'node:path';
 import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
+
+import { browserslistToTargets } from 'lightningcss';
+import browserslist from 'browserslist';
+
+import react from '@vitejs/plugin-react-swc';
 import dts from 'vite-plugin-dts';
 
 import { peerDependencies } from './package.json';
@@ -8,7 +12,6 @@ import { peerDependencies } from './package.json';
 export default defineConfig({
 	build: {
 		target: 'esnext',
-		minify: false,
 
 		lib: {
 			entry: resolve(__dirname, join('src', 'index.ts')),
@@ -18,6 +21,20 @@ export default defineConfig({
 
 		rollupOptions: {
 			external: ['react/jsx-runtime', ...Object.keys(peerDependencies)]
+		},
+
+		minify: false,
+		cssMinify: 'lightningcss'
+	},
+
+	css: {
+		transformer: 'lightningcss',
+
+		lightningcss: {
+			targets: browserslistToTargets(browserslist('>= 0.25%')),
+			cssModules: {
+				pattern: '2cb-[name]-[hash]-[local]'
+			}
 		}
 	},
 
@@ -27,10 +44,5 @@ export default defineConfig({
 		}
 	},
 
-	plugins: [
-		react(),
-		dts({
-			rollupTypes: true
-		})
-	]
+	plugins: [react(), dts({ rollupTypes: true })]
 });

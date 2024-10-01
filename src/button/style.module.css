@@ -1,0 +1,111 @@
+.button,
+.button * {
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+}
+
+.button {
+	--timeout: 2000ms;
+	--timeslice: calc(var(--timeout) / 20);
+
+	position: absolute;
+
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+
+	color: hsl(0, 0%, 80%);
+
+	background: none;
+	background-color: hsl(0, 0%, 96%);
+
+	border: none;
+	border-radius: 0.25rem;
+	outline: 1.5px solid hsl(0, 0%, 90%);
+
+	box-shadow: 0 1px 0.5rem hsla(0, 0%, 0%, 0.15);
+
+	width: 2rem;
+	height: 2rem;
+
+	padding: 0.4em;
+
+	transition: all var(--timeslice) ease-in;
+
+	overflow: hidden;
+}
+
+.button:hover {
+	cursor: pointer;
+	background-color: hsl(0, 0%, 95%);
+	outline: 2px solid hsl(0, 0%, 85%);
+	width: 100%;
+}
+
+.button:hover .icon {
+	color: hsl(0, 0%, 65%);
+}
+
+.icon {
+	stroke-width: 2px;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+	stroke: currentColor;
+	fill: transparent;
+
+	width: 100%;
+	height: 100%;
+
+	transition: all var(--timeslice) ease-in;
+}
+
+.path {
+	opacity: 1;
+	transition: all var(--timeslice) ease-out;
+}
+
+.fade {
+	opacity: 0.1;
+}
+
+.copied,
+.error {
+	stroke-width: 2.5px;
+
+	stroke-dasharray: 100;
+	stroke-dashoffset: 0;
+
+	animation: draw var(--timeout) ease-out;
+}
+
+.copied {
+	color: green;
+}
+
+.error {
+	color: red;
+	animation-direction: reverse;
+}
+
+.error:nth-of-type(2n) {
+	animation-delay: calc(var(--timeslice) / 2);
+}
+
+@keyframes draw {
+	from {
+		stroke-dashoffset: 100;
+	}
+
+	10% {
+		stroke-dashoffset: 200;
+	}
+
+	80% {
+		stroke-dashoffset: 200;
+	}
+
+	to {
+		stroke-dashoffset: 300;
+	}
+}
