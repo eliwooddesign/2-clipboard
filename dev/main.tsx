@@ -1,12 +1,12 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
-import { Button } from '../src/button';
+import { App } from './App';
 
-import './index.css';
+import './style.css';
 
 createRoot(document.getElementById('root')!).render(
 	<StrictMode>
-		<Button />
+		<App />
 	</StrictMode>
 );
