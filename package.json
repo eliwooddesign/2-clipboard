@@ -1,5 +1,4 @@
 {
-	"private": true,
 	"name": "2-clipboard",
 	"version": "0.0.1",
 	"description": "Simple React button component for copying content to the clipboard.",
