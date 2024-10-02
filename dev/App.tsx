@@ -1,4 +1,5 @@
-import { Button } from '../src/button';
+import { CopyBlock } from '../src/block';
+// import { CopyButton } from '../src/button';
 
 export const App = () => {
 	return (
@@ -7,7 +8,7 @@ export const App = () => {
 				<h1>Component</h1>
 
 				<div className='content'>
-					<Button toCopy='Boop!' />
+					<CopyBlock toCopy='little booop'>Big boop!</CopyBlock>
 				</div>
 			</div>
 

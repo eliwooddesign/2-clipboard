@@ -53,8 +53,8 @@ export const Button = ({ toCopy, size = 'medium', timeout = 2000, ...props }: Bu
 	};
 
 	const inlineStyles = {
-		['--2cb-size' as string]: `${typeof size === 'number' ? size : sizeMap[size]}px`,
-		['--2cb-timeout' as string]: `${timeout}ms`
+		['--copy-button-size' as string]: `${typeof size === 'number' ? size : sizeMap[size]}px`,
+		['--copy-button-timeout' as string]: `${timeout}ms`
 	} as React.CSSProperties;
 
 	const tooltipText = copied ? 'Copied!' : error ? 'Something went wrong' : 'Copy to clipboard';
@@ -62,7 +62,7 @@ export const Button = ({ toCopy, size = 'medium', timeout = 2000, ...props }: Bu
 	const active = copied || error;
 
 	return (
-		<div className={`${styles.container} ${active ? styles.active : ''}`} data-active={active}>
+		<span className={`${styles.container} ${active ? styles.active : ''}`} data-active={active}>
 			<Tooltip text={tooltipText}>
 				<button {...props} style={inlineStyles} className={`${styles.button} ${props.className}`} onClick={handleClick} data-copied={copied}>
 					<svg xmlns='http://www.w3.org/2000/svg' width={24} height={24} viewBox='0 0 24 24' className={styles.icon}>
@@ -84,6 +84,6 @@ export const Button = ({ toCopy, size = 'medium', timeout = 2000, ...props }: Bu
 					</svg>
 				</button>
 			</Tooltip>
-		</div>
+		</span>
 	);
 };

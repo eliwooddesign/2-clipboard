@@ -1,19 +1,19 @@
 .container,
 .container * {
 	box-sizing: border-box;
-	padding: 0;
 	margin: 0;
+	padding: 0;
 }
 
 .container {
-	--size: 32px;
-	--icon-size: calc(var(--size) * 2 / 3);
-	--component-size: calc(var(--size) + var(--space) * 2);
+	--copy-button-size: 32px;
+	--copy-button-space: calc(var(--copy-button-size) * 1 / 6);
 
-	--space: calc(var(--size) * 1 / 6);
+	--copy-button-icon-size: calc(var(--copy-button-size) * 2 / 3);
+	--copy-button-component-size: calc(var(--copy-button-size) + var(--copy-button-space) * 2);
 
-	--timeout: 2000ms;
-	--transition-speed: calc(var(--timeout) / 40);
+	--copy-button-timeout: 2000ms;
+	--copy-button-transition-speed: calc(var(--copy-button-timeout) / 40);
 
 	position: absolute;
 	top: 0;
@@ -22,33 +22,32 @@
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
-	gap: var(--space);
+	gap: var(--copy-button-space);
 
 	width: fit-content;
-	height: var(--component-size);
-	min-width: var(--component-size);
+	height: var(--copy-button-component-size);
+	min-width: var(--copy-button-component-size);
 
-	padding: var(--space);
+	padding: var(--copy-button-space) !important;
 }
 
 .button {
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
-	gap: var(--space);
 
 	background: none;
 	border: none;
-	border-radius: 0.25rem;
+	border-radius: 0.5em;
 
-	width: var(--size);
-	height: var(--size);
+	width: var(--copy-button-size);
+	height: var(--copy-button-size);
 
-	padding: var(--space);
+	padding: var(--copy-button-space) !important;
 
 	overflow: hidden;
 
-	transition: all var(--transition-speed) ease-out;
+	transition: all var(--copy-button-transition-speed) ease-out;
 }
 
 .button:hover {
@@ -58,20 +57,7 @@
 }
 
 .active .button {
-	animation: expand var(--timeout) ease-out;
-}
-
-.content {
-	position: relative;
-	right: 0;
-	left: auto;
-
-	display: flex;
-	justify-content: center;
-	align-items: center;
-
-	width: fit-content;
-	height: 100%;
+	animation: expand var(--copy-button-timeout) ease-out;
 }
 
 .icon {
@@ -83,8 +69,8 @@
 
 	color: hsl(0, 0%, 80%);
 
-	width: var(--icon-size);
-	height: var(--icon-size);
+	width: var(--copy-button-icon-size);
+	height: var(--copy-button-icon-size);
 }
 
 .button:hover .icon {
@@ -93,7 +79,7 @@
 
 .path {
 	opacity: 1;
-	transition: all var(--transition-speed) ease-out;
+	transition: all var(--copy-button-transition-speed) ease-out;
 }
 
 .button:hover .path {
@@ -103,7 +89,7 @@
 
 .active .path {
 	opacity: 0.2;
-	transition-delay: var(--transition-speed);
+	transition-delay: var(--copy-button-transition-speed);
 }
 
 .status {
@@ -112,8 +98,8 @@
 	stroke-dasharray: 100;
 	stroke-dashoffset: 0;
 
-	transition: all var(--transition-speed) ease-out;
-	animation: draw var(--timeout) ease-out;
+	transition: all var(--copy-button-transition-speed) ease-out;
+	animation: draw var(--copy-button-timeout) ease-out;
 }
 
 .copied {
@@ -126,12 +112,12 @@
 }
 
 .error:nth-of-type(2n) {
-	animation-delay: calc(var(--transition-speed) / 2);
+	animation-delay: calc(var(--copy-button-transition-speed) / 2);
 }
 
 @keyframes expand {
 	from {
-		width: var(--size);
+		width: var(--copy-button-size);
 	}
 
 	5% {
@@ -145,7 +131,7 @@
 	}
 
 	to {
-		width: var(--size);
+		width: var(--copy-button-size);
 	}
 }
 

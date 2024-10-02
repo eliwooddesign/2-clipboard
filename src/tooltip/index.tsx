@@ -77,9 +77,9 @@ export const Tooltip = ({ text, ...props }: TooltipProps) => {
 
 	return (
 		<>
-			<div {...props} ref={refs.setReference} {...getReferenceProps()}>
+			<span {...props} ref={refs.setReference} {...getReferenceProps()}>
 				{children}
-			</div>
+			</span>
 
 			<FloatingPortal>
 				{isMounted && (
