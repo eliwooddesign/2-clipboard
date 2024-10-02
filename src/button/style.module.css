@@ -9,7 +9,7 @@
 	--copy-button-size: 32px;
 	--copy-button-space: calc(var(--copy-button-size) * 1 / 6);
 
-	--copy-button-icon-size: calc(var(--copy-button-size) * 2 / 3);
+	--copy-icon-size: calc(var(--copy-button-size) * 2 / 3);
 	--copy-button-component-size: calc(var(--copy-button-size) + var(--copy-button-space) * 2);
 
 	--copy-button-timeout: 2000ms;
@@ -50,10 +50,10 @@
 	transition: all var(--copy-button-transition-speed) ease-out;
 }
 
-.button:hover {
+.button {
 	cursor: pointer;
 
-	background-color: hsla(0, 0%, 0%, 0.05);
+	background-color: hsla(0, 0%, 50%, 0.1);
 }
 
 .active .button {
@@ -67,14 +67,14 @@
 	stroke: currentColor;
 	fill: transparent;
 
-	color: hsl(0, 0%, 80%);
+	color: hsla(0, 0%, 50%, 0.5);
 
-	width: var(--copy-button-icon-size);
-	height: var(--copy-button-icon-size);
+	width: var(--copy-icon-size);
+	height: var(--copy-icon-size);
 }
 
 .button:hover .icon {
-	color: hsl(0, 0%, 76%);
+	color: hsla(0, 0%, 50%, 0.75);
 }
 
 .path {
@@ -88,7 +88,7 @@
 }
 
 .active .path {
-	opacity: 0.2;
+	opacity: 0.1;
 	transition-delay: var(--copy-button-transition-speed);
 }
 

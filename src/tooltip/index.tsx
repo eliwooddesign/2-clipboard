@@ -4,16 +4,17 @@ import { useFloating, autoUpdate, offset, flip, shift, useHover, useFocus, useDi
 import styles from './style.module.css';
 
 const ARROW_WIDTH = 12;
-const ARROW_HEIGHT = 6;
-const GAP = 3;
+const ARROW_HEIGHT = ARROW_WIDTH / 2;
+const ARROW_RADIUS = ARROW_HEIGHT / 3;
 
-export interface TooltipProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+const OFFSET = ARROW_HEIGHT;
+
+export interface TooltipProps extends React.HTMLProps<HTMLSpanElement> {
 	text: string;
+	enabled?: boolean;
 }
 
-export const Tooltip = ({ text, ...props }: TooltipProps) => {
-	const { children } = props;
-
+export const Tooltip = ({ text, enabled = true, children, ...props }: TooltipProps) => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const arrowRef = useRef(null);
@@ -27,7 +28,7 @@ export const Tooltip = ({ text, ...props }: TooltipProps) => {
 		whileElementsMounted: autoUpdate,
 
 		middleware: [
-			offset(ARROW_HEIGHT + GAP),
+			offset(OFFSET),
 			flip({
 				fallbackAxisSideDirection: 'start',
 				fallbackPlacements: ['left', 'bottom']
@@ -42,7 +43,7 @@ export const Tooltip = ({ text, ...props }: TooltipProps) => {
 	const hover = useHover(context, {
 		delay: {
 			open: 500,
-			close: 500
+			close: 250
 		}
 	});
 
@@ -55,7 +56,7 @@ export const Tooltip = ({ text, ...props }: TooltipProps) => {
 	const { isMounted, styles: transitionStyles } = useTransitionStyles(context, {
 		initial: {
 			opacity: 0,
-			transform: 'scale(0.75)'
+			transform: 'scale(0)'
 		},
 
 		duration: 200,
@@ -64,16 +65,15 @@ export const Tooltip = ({ text, ...props }: TooltipProps) => {
 			transformOrigin: {
 				top: 'bottom',
 				bottom: 'top',
-				left: 'right',
+				left: `calc(100% + ${ARROW_WIDTH}px)`,
 				right: 'left'
 			}[side]
 		})
 	});
 
-	const inlineStyles = {
-		...transitionStyles,
-		['--copy2-tooltip-background']: `hsl(0, 0%, 20%)`
-	} as React.CSSProperties;
+	if (!enabled) {
+		return <span {...props}>{children}</span>;
+	}
 
 	return (
 		<>
@@ -84,8 +84,8 @@ export const Tooltip = ({ text, ...props }: TooltipProps) => {
 			<FloatingPortal>
 				{isMounted && (
 					<div ref={refs.setFloating} style={floatingStyles} {...getFloatingProps()}>
-						<div className={styles.tooltip} style={inlineStyles}>
-							<FloatingArrow ref={arrowRef} context={context} tipRadius={1.5} width={ARROW_WIDTH} height={ARROW_HEIGHT} fill='var(--copy2-tooltip-background)' />
+						<div className={styles.tooltip} style={transitionStyles}>
+							<FloatingArrow ref={arrowRef} context={context} tipRadius={ARROW_RADIUS} width={ARROW_WIDTH} height={ARROW_HEIGHT} fill='var(--copy2-tooltip-background)' />
 							<p>{text}</p>
 						</div>
 					</div>

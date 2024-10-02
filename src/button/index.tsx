@@ -4,13 +4,14 @@ import { Tooltip } from '@/tooltip';
 
 import styles from './style.module.css';
 
-export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-	toCopy: string;
+export interface CopyButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+	valueToCopy: string;
 	size?: 'small' | 'medium' | 'large' | number;
 	timeout?: number;
+	tooltip?: boolean;
 }
 
-export const Button = ({ toCopy, size = 'medium', timeout = 2000, ...props }: ButtonProps) => {
+export const CopyButton = ({ valueToCopy, size = 'medium', timeout = 2000, tooltip = true, ...props }: CopyButtonProps) => {
 	const [copied, setCopied] = useState(false);
 	const [error, setError] = useState(false);
 
@@ -19,7 +20,7 @@ export const Button = ({ toCopy, size = 'medium', timeout = 2000, ...props }: Bu
 
 		try {
 			if (navigator.clipboard) {
-				await navigator.clipboard.writeText(toCopy);
+				await navigator.clipboard.writeText(valueToCopy);
 				setCopied(true);
 			} else {
 				console.error('Clipboard API not available.');
@@ -62,28 +63,26 @@ export const Button = ({ toCopy, size = 'medium', timeout = 2000, ...props }: Bu
 	const active = copied || error;
 
 	return (
-		<span className={`${styles.container} ${active ? styles.active : ''}`} data-active={active}>
-			<Tooltip text={tooltipText}>
-				<button {...props} style={inlineStyles} className={`${styles.button} ${props.className}`} onClick={handleClick} data-copied={copied}>
-					<svg xmlns='http://www.w3.org/2000/svg' width={24} height={24} viewBox='0 0 24 24' className={styles.icon}>
-						{copied && (
-							<>
-								<path d='M20 6 9 17l-5-5' className={`${styles.status} ${styles.copied}`} />
-							</>
-						)}
+		<Tooltip text={tooltipText} enabled={tooltip} className={`${styles.container} ${active ? styles.active : ''}`} data-active={active}>
+			<button {...props} style={inlineStyles} className={`${styles.button} ${props.className}`} onClick={handleClick} data-copied={copied}>
+				<svg xmlns='http://www.w3.org/2000/svg' width={24} height={24} viewBox='0 0 24 24' className={styles.icon}>
+					<rect width='14' height='14' x='8' y='8' rx='2' ry='2' className={styles.path} />
+					<path d='M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2' className={styles.path} />
 
-						{error && (
-							<>
-								<path d='M18 6 6 18' className={`${styles.status} ${styles.error}`} />
-								<path d='m6 6 12 12' className={`${styles.status} ${styles.error}`} />
-							</>
-						)}
+					{copied && (
+						<>
+							<path d='M20 6 9 17l-5-5' className={`${styles.status} ${styles.copied}`} />
+						</>
+					)}
 
-						<rect width='14' height='14' x='8' y='8' rx='2' ry='2' className={styles.path} />
-						<path d='M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2' className={styles.path} />
-					</svg>
-				</button>
-			</Tooltip>
-		</span>
+					{error && (
+						<>
+							<path d='M18 6 6 18' className={`${styles.status} ${styles.error}`} />
+							<path d='m6 6 12 12' className={`${styles.status} ${styles.error}`} />
+						</>
+					)}
+				</svg>
+			</button>
+		</Tooltip>
 	);
 };

@@ -16,7 +16,7 @@ export default defineConfig({
 		lib: {
 			entry: resolve(__dirname, join('src', 'index.ts')),
 			fileName: 'index',
-			formats: ['es', 'cjs']
+			formats: ['es', 'umd', 'cjs']
 		},
 
 		rollupOptions: {

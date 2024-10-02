@@ -1,14 +1,19 @@
-import { Button, type ButtonProps } from '../button';
+import { CopyButton, type CopyButtonProps } from '../button';
 
 import styles from './style.module.css';
 
-export interface CopyBlockProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
-	toCopy?: string;
-	button?: ButtonProps;
+export type ButtonProps = Omit<CopyButtonProps, 'valueToCopy'> & {
+	valueToCopy?: string;
+};
+
+export interface CopyBlockProps extends Omit<React.HTMLProps<HTMLParagraphElement>, 'children'> {
+	children: string;
+	valueToCopy?: string;
+	buttonProps?: ButtonProps;
 }
 
-export const CopyBlock = ({ children, toCopy, button, ...props }: CopyBlockProps) => {
-	const size = button?.size || 'medium';
+export const CopyBlock = ({ children, valueToCopy, buttonProps, ...props }: CopyBlockProps) => {
+	const size = buttonProps?.size || 'medium';
 
 	const sizeMap = {
 		small: 28,
@@ -17,13 +22,13 @@ export const CopyBlock = ({ children, toCopy, button, ...props }: CopyBlockProps
 	};
 
 	const inlineStyles = {
-		['--copy-block-size' as string]: `${typeof size === 'number' ? size : sizeMap[size]}px`
+		['--copy-button-size' as string]: `${typeof size === 'number' ? size : sizeMap[size]}px`
 	} as React.CSSProperties;
 
 	return (
 		<p {...props} style={inlineStyles} className={styles.block}>
 			{children}
-			<Button toCopy={String(toCopy || children)} {...button} />
+			<CopyButton {...buttonProps} valueToCopy={String(valueToCopy || children)} />
 		</p>
 	);
 };

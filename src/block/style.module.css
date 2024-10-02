@@ -6,10 +6,9 @@
 }
 
 .block {
-	--copy-block-size: 32px;
-	--copy-block-space: calc(var(--copy-block-size) * 1 / 3);
-
-	--copy-block-button-size: calc(var(--copy-block-size) + var(--copy-block-space));
+	--copy-button-size: 32px;
+	--copy-block-space: calc(var(--copy-button-size) * 1 / 3);
+	--copy-block-size: calc(var(--copy-button-size) + var(--copy-block-space));
 
 	position: relative;
 
@@ -18,8 +17,8 @@
 
 	width: 100%;
 	height: fit-content;
-	min-width: calc(var(--copy-block-button-size) * 2);
-	min-height: var(--copy-block-button-size);
+	min-width: calc(var(--copy-block-size) * 2);
+	min-height: var(--copy-block-size);
 
 	padding: var(--copy-block-space);
 }

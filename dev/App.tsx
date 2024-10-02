@@ -1,5 +1,5 @@
 import { CopyBlock } from '../src/block';
-// import { CopyButton } from '../src/button';
+import { CopyButton } from '../src/button';
 
 export const App = () => {
 	return (
@@ -8,7 +8,11 @@ export const App = () => {
 				<h1>Component</h1>
 
 				<div className='content'>
-					<CopyBlock toCopy='little booop'>Big boop!</CopyBlock>
+					<CopyBlock>Copied from CopyBlock</CopyBlock>
+				</div>
+
+				<div className='content'>
+					<CopyButton valueToCopy='Copied from CopyButton' />
 				</div>
 			</div>
 
