@@ -46,10 +46,18 @@ export const CopyButton = ({ valueToCopy, size = 'medium', timeout = 1500, ...pr
 			{status === 'ERROR' && <XIcon className={clsx(styles.icon, styles.status, styles.error)} />}
 
 			<span className={styles.tooltip}>
-				{status === 'READY' && <span className={styles.text}>Copy</span>}
 				{status === 'COPIED' && <span className={styles.text}>Copied!</span>}
+				{status === 'READY' && <span className={styles.text}>Copy</span>}
 				{status === 'ERROR' && <span className={styles.text}>Error</span>}
 			</span>
+
+			{/* <span className={styles.tooltip}>
+				<span className={clsx(styles.text, styles[status.toLocaleLowerCase() + '-text'])}>
+					<span>Copied!</span>
+					<span>Copy</span>
+					<span>Error</span>
+				</span>
+			</span> */}
 		</button>
 	);
 };
