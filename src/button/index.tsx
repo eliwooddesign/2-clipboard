@@ -1,14 +1,7 @@
 import clsx from 'clsx';
 
 import { CopyIcon, CheckIcon, XIcon } from '@/icons';
-import { useClipboard } from '@/hooks';
-
-import { bundle } from 'lightningcss';
-
-const { code, map } = bundle({
-	filename: 'style.module.css',
-	minify: true
-});
+import { useClipboard, useStyles } from '@/hooks';
 
 import styles from './style.module.css';
 
@@ -20,6 +13,7 @@ export interface CopyButtonProps extends React.ButtonHTMLAttributes<HTMLButtonEl
 
 export const CopyButton = ({ valueToCopy, size = 'medium', timeout = 1500, ...props }: CopyButtonProps) => {
 	const { copy, status } = useClipboard(timeout);
+	const { prefix } = useStyles(styles);
 
 	const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
 		if (status === 'READY') {
@@ -32,22 +26,30 @@ export const CopyButton = ({ valueToCopy, size = 'medium', timeout = 1500, ...pr
 	};
 
 	const sizeMap = {
-		small: 28,
-		medium: 32,
-		large: 36
+		small: 32,
+		medium: 36,
+		large: 40
 	};
 
 	const inlineStyles = {
-		['--copy-button-size' as string]: `${typeof size === 'number' ? size : sizeMap[size]}px`,
-		['--copy-button-timeout' as string]: `${timeout}ms`
+		[prefix('--size')]: `${typeof size === 'number' ? size : sizeMap[size]}px`,
+		[prefix('--timeout')]: `${timeout}ms`
 	} as React.CSSProperties;
+
+	console.log(styles);
 
 	return (
 		<button {...props} style={inlineStyles} className={styles.button} onClick={handleClick} data-status={status}>
-			<CopyIcon className={styles.icon} />
+			<CopyIcon className={clsx(styles.icon, styles.ready)} />
 
 			{status === 'COPIED' && <CheckIcon className={clsx(styles.icon, styles.status, styles.copied)} />}
 			{status === 'ERROR' && <XIcon className={clsx(styles.icon, styles.status, styles.error)} />}
+
+			<span className={styles.tooltip}>
+				{status === 'READY' && <span className={styles.text}>Copy</span>}
+				{status === 'COPIED' && <span className={styles.text}>Copied!</span>}
+				{status === 'ERROR' && <span className={styles.text}>Error</span>}
+			</span>
 		</button>
 	);
 };

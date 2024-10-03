@@ -1,6 +1,8 @@
 import { CopyBlock } from '../src/block';
 import { CopyButton } from '../src/button';
 
+const LOREM = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
+
 export const App = () => {
 	return (
 		<div className='app'>
@@ -8,14 +10,17 @@ export const App = () => {
 				<div className='container'>
 					<h1>CopyBlock</h1>
 					<div className='content'>
-						<CopyBlock>Why did the scarecrow become a go od software engineer? Because he was outstanding in his field! Why did the scarecrow become a go od software engineer? Because he was outstanding in his field! Why did the scarecrow become a go od software engineer? Because he was outstanding in his field! Why did the scarecrow become a go od software engineer? Because he was outstanding in his field!</CopyBlock>
+						<CopyBlock>{LOREM.repeat(20)}</CopyBlock>
 					</div>
 				</div>
 
 				<div className='container'>
 					<h1>CopyButton</h1>
 					<div className='content'>
-						<CopyButton valueToCopy='Copied from CopyButton' />
+						<div className='wrapper'>
+							<p>{LOREM}</p>
+							<CopyButton valueToCopy='Copied from CopyButton' />
+						</div>
 					</div>
 				</div>
 			</div>

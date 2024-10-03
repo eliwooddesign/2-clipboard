@@ -33,7 +33,8 @@ export default defineConfig({
 		lightningcss: {
 			targets: browserslistToTargets(browserslist('>= 0.25%')),
 			cssModules: {
-				pattern: 'copy-2cb-[name]-[hash]-[local]'
+				pattern: 'copy-2cb-[hash]-[local]',
+				dashedIdents: true
 			}
 		}
 	},
