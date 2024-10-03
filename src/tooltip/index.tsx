@@ -42,8 +42,9 @@ export const Tooltip = ({ text, enabled = true, children, ...props }: TooltipPro
 
 	const hover = useHover(context, {
 		delay: {
-			open: 500,
-			close: 250
+			// open: 1500,
+			open: 0,
+			close: 500
 		}
 	});
 
@@ -63,10 +64,10 @@ export const Tooltip = ({ text, enabled = true, children, ...props }: TooltipPro
 
 		common: ({ side }) => ({
 			transformOrigin: {
-				top: 'bottom',
-				bottom: 'top',
-				left: `calc(100% + ${ARROW_WIDTH}px)`,
-				right: 'left'
+				top: `center calc(100% + ${ARROW_WIDTH}px)`,
+				bottom: `center calc(-${ARROW_WIDTH}px)`,
+				left: `calc(100% + ${ARROW_WIDTH}px) center`,
+				right: `calc(-${ARROW_WIDTH}px) center`
 			}[side]
 		})
 	});
@@ -85,7 +86,7 @@ export const Tooltip = ({ text, enabled = true, children, ...props }: TooltipPro
 				{isMounted && (
 					<div ref={refs.setFloating} style={floatingStyles} {...getFloatingProps()}>
 						<div className={styles.tooltip} style={transitionStyles}>
-							<FloatingArrow ref={arrowRef} context={context} tipRadius={ARROW_RADIUS} width={ARROW_WIDTH} height={ARROW_HEIGHT} fill='var(--copy2-tooltip-background)' />
+							<FloatingArrow ref={arrowRef} context={context} tipRadius={ARROW_RADIUS} width={ARROW_WIDTH} height={ARROW_HEIGHT} fill='var(--copy-tooltip-background)' />
 							<p>{text}</p>
 						</div>
 					</div>

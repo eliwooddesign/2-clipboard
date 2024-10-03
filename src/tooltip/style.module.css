@@ -6,7 +6,7 @@
 }
 
 .tooltip {
-	--copy2-tooltip-background: hsl(0, 0%, 25%);
+	--copy-tooltip-background: hsl(0, 0%, 25%);
 
 	display: flex;
 	justify-content: center;
@@ -17,7 +17,7 @@
 	line-height: 1;
 	color: white;
 
-	background-color: var(--copy2-tooltip-background);
+	background-color: var(--copy-tooltip-background);
 	border-radius: 6px;
 
 	box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);

@@ -21,7 +21,9 @@ export default tseslint.config(
 			}
 		},
 
-		settings: { react: { version: '18.3.1' } },
+		settings: {
+			react: { version: '18.3.1' }
+		},
 
 		plugins: {
 			react,
@@ -30,10 +32,20 @@ export default tseslint.config(
 		},
 
 		rules: {
+			// recommended by vite
+			...react.configs.recommended.rules,
+			...react.configs['jsx-runtime'].rules,
 			...reactHooks.configs.recommended.rules,
 			'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
-			...react.configs.recommended.rules,
-			...react.configs['jsx-runtime'].rules
+
+			// custom
+			'@typescript-eslint/restrict-template-expressions': [
+				'error',
+				{
+					allowNumber: true,
+					allowBoolean: true
+				}
+			]
 		}
 	}
 );
