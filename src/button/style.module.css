@@ -1,38 +1,14 @@
-.container,
-.container * {
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
-}
-
-.container {
+.button {
 	--copy-button-size: 32px;
 	--copy-button-space: calc(var(--copy-button-size) * 1 / 6);
+
 	--copy-icon-size: calc(var(--copy-button-size) * 2 / 3);
-	--copy-button-container-size: calc(var(--copy-button-size) + var(--copy-button-space) * 2);
+
 	--copy-button-timeout: 2000ms;
 	--copy-button-transition-speed: calc(var(--copy-button-timeout) / 40);
 
-	position: relative;
-	top: 0;
-	right: 0;
-
 	display: flex;
 	justify-content: center;
-	align-items: center;
-
-	gap: var(--copy-button-space);
-
-	height: var(--copy-button-container-size);
-	width: var(--copy-button-container-size);
-
-	padding: calc(var(--copy-button-space));
-	margin: 0 0 auto auto;
-}
-
-.container .button {
-	display: flex;
-	justify-content: flex-end;
 	align-items: center;
 
 	background: none;
@@ -47,6 +23,8 @@
 	overflow: hidden;
 
 	transition: all var(--copy-button-transition-speed) ease-out;
+
+	outline: 1px solid red;
 }
 
 .button:hover {
