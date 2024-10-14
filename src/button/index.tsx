@@ -26,8 +26,8 @@ export const CopyButton = ({ valueToCopy, size = 'medium', timeout = 1500, ...pr
 	};
 
 	const sizeMap = {
-		small: 32,
-		medium: 36,
+		small: 28,
+		medium: 34,
 		large: 40
 	};
 
@@ -36,28 +36,26 @@ export const CopyButton = ({ valueToCopy, size = 'medium', timeout = 1500, ...pr
 		[prefix('--timeout')]: `${timeout}ms`
 	} as React.CSSProperties;
 
-	console.log(styles);
-
 	return (
 		<button {...props} style={inlineStyles} className={styles.button} onClick={handleClick} data-status={status}>
-			<CopyIcon className={clsx(styles.icon, styles.ready)} />
-
-			{status === 'COPIED' && <CheckIcon className={clsx(styles.icon, styles.status, styles.copied)} />}
-			{status === 'ERROR' && <XIcon className={clsx(styles.icon, styles.status, styles.error)} />}
-
-			<span className={styles.tooltip}>
-				{status === 'COPIED' && <span className={styles.text}>Copied!</span>}
-				{status === 'READY' && <span className={styles.text}>Copy</span>}
-				{status === 'ERROR' && <span className={styles.text}>Error</span>}
-			</span>
-
-			{/* <span className={styles.tooltip}>
-				<span className={clsx(styles.text, styles[status.toLocaleLowerCase() + '-text'])}>
-					<span>Copied!</span>
-					<span>Copy</span>
-					<span>Error</span>
+			<span className={styles['button-content']}>
+				<span className={clsx(styles.container, styles['text-container'])}>
+					<span className={clsx(styles.content, styles['text-content'])}>
+						<span className={clsx(styles.text, styles['text-copied'])}>Copied!</span>
+						<span className={clsx(styles.text, styles['text-ready'])}>Copy</span>
+						<span className={clsx(styles.text, styles['text-error'])}>Error</span>
+					</span>
 				</span>
-			</span> */}
+
+				<span className={clsx(styles.container, styles['icon-container'])}>
+					<span className={clsx(styles.content, styles['icon-content'])}>
+						<CopyIcon className={clsx(styles.icon, styles['icon-ready'])} />
+
+						{status === 'COPIED' && <CheckIcon className={clsx(styles.icon, styles['icon-copied'])} />}
+						{status === 'ERROR' && <XIcon className={clsx(styles.icon, styles['icon-error'])} />}
+					</span>
+				</span>
+			</span>
 		</button>
 	);
 };

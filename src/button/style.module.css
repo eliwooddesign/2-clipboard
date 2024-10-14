@@ -4,9 +4,8 @@
 
 	--icon-size: calc(var(--size) * 3 / 5);
 
-	--timeout: 2000ms;
-	/* --transition-speed: calc(var(--timeout) / 10); */
-	--transition-speed: 1s;
+	--timeout: 1500ms;
+	--transition-speed: 200ms;
 
 	--blur: 24px;
 
@@ -15,12 +14,11 @@
 	position: relative;
 
 	display: flex;
-	justify-content: center;
+	justify-content: flex-end;
 	align-items: center;
 
 	background: none;
 	border: none;
-	border-radius: 6px;
 
 	width: var(--size);
 	height: var(--size);
@@ -31,9 +29,63 @@
 	margin: 0 0 auto auto;
 }
 
-.button:hover {
+.button-content {
+	position: absolute;
+	top: 0;
+	right: 0;
+
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	gap: 4px;
+
+	border-radius: 6px;
+
+	width: var(--size);
+	height: var(--size);
+	min-width: var(--size);
+	min-height: var(--size);
+	max-width: fit-content;
+
+	/* overflow: hidden; */
+}
+
+.button:hover .button-content {
 	cursor: pointer;
+
+	width: fit-content;
+}
+
+.container {
+	position: relative;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
 	background: light-dark(hsla(0, 0%, 0%, 0.06), hsla(0, 0%, 100%, 0.04));
+	border-radius: 6px;
+
+	height: var(--size);
+	min-height: var(--size);
+}
+
+.content {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	padding: var(--space);
+}
+
+.icon-container,
+.icon-content {
+	width: var(--size);
+	min-width: var(--size);
+}
+
+.icon-content {
+	position: absolute;
 }
 
 .icon {
@@ -53,7 +105,7 @@
 	transition: opacity var(--transition-speed) ease-out;
 }
 
-.button:hover .ready {
+.button:hover .icon-ready {
 	color: light-dark(hsla(0, 0%, 50%), hsla(0, 0%, 66%));
 }
 
@@ -61,12 +113,12 @@
 	transition-delay: var(--transition-speed);
 }
 
-.button[data-status='COPIED'] .ready {
+.button[data-status='COPIED'] .icon-ready {
 	opacity: 0.1;
 	transition-delay: 0s;
 }
 
-.status {
+.icon {
 	stroke-width: 2.5px;
 
 	stroke-dasharray: 100;
@@ -75,20 +127,78 @@
 	animation: draw var(--timeout) ease-out;
 }
 
-.copied {
+.icon-copied {
 	color: green;
 }
 
-.error {
+.icon-error {
 	color: red;
 	animation-direction: reverse;
 }
 
-.error:nth-of-type(2n) {
-	animation-delay: calc(var(--transition-speed) / 2);
+.text-container {
+	max-width: 0%;
+	transition: all calc(var(--transition-speed) * 2) ease-in;
 }
 
-.tooltip {
+.button:hover .text-container {
+	max-width: 100%;
+	transition: all var(--transition-speed) ease-in;
+}
+
+.text-content {
+	display: flex;
+
+	width: fit-content;
+
+	overflow: hidden;
+
+	/* outline: 1px solid blue; */
+}
+
+.text {
+	text-align: end;
+
+	transform: translateX(200%);
+
+	width: fit-content;
+
+	overflow: hidden;
+
+	transition: all var(--transition-speed) ease-out;
+
+	/* outline: 1px solid red; */
+}
+
+.button:hover .text {
+	transform: translateX(0%);
+}
+
+.button[data-status='READY'] .text-ready {
+	max-width: 100%;
+}
+
+.button[data-status='READY'] .text-copied {
+	transform: translateX(200%);
+}
+
+.button[data-status='COPIED'] .text-copied {
+	transform: translateX(0%);
+	max-width: 100%;
+	transition-delay: var(--transition-speed);
+}
+
+.button[data-status='READY'] .text-error {
+	transform: translateX(-200%);
+}
+
+.button[data-status='ERROR'] .text-error {
+	transform: translateX(0%);
+	max-width: 100%;
+	transition-delay: var(--transition-speed);
+}
+
+/* .tooltip {
 	position: absolute;
 	top: 0;
 	right: 100%;
@@ -110,6 +220,8 @@
 	height: var(--size);
 	max-width: 0px;
 	max-height: var(--size);
+
+	transform: translateX(var(--size));
 
 	padding: 0;
 	margin: 0;
@@ -143,7 +255,7 @@
 	transition: all 150ms ease-out calc(var(--timeout) + 100ms);
 }
 
-/* .copied-text {
+.copied-text {
 	transform: translate(0%, calc(var(--size)));
 }
 
