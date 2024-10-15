@@ -1,24 +1,24 @@
 import { useEffect, useState, useRef } from 'react';
 
-export const useRefWidth = () => {
+export const useRefWidth = <T extends HTMLElement>() => {
 	const [refWidth, setWidth] = useState(0);
 
-	const ref = useRef<HTMLElement>(null);
+	const ref = useRef<T>(null);
 
 	const updateWidth = () => {
 		const element = ref.current;
 
-		if (!element) {
-			return;
+		if (element instanceof HTMLElement) {
+			const { width } = element.getBoundingClientRect();
+			setWidth(width);
 		}
-
-		const { width } = element.getBoundingClientRect();
-		setWidth(width);
 	};
 
 	useEffect(() => {
 		updateWidth();
 	}, []);
 
-	return [ref, refWidth];
+	const refAndWidth: [typeof ref, number] = [ref, refWidth];
+
+	return refAndWidth;
 };

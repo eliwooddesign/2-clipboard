@@ -1,11 +1,15 @@
 .button {
 	--size: 36px;
-	--space: calc(var(--size) * 0.25);
+	--space: calc(var(--size) / 4);
+	--gap: calc(var(--size) / 10);
 
 	--icon-size: calc(var(--size) * 3 / 5);
 
 	--timeout: 1500ms;
 	--transition-speed: 200ms;
+
+	--text-width: 70px;
+	--text-max-width: 100px;
 
 	--blur: 24px;
 
@@ -20,7 +24,6 @@
 	background: none;
 	border: none;
 
-	width: var(--size);
 	height: var(--size);
 	min-width: var(--size);
 	min-height: var(--size);
@@ -37,7 +40,7 @@
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
-	gap: 4px;
+	gap: var(--gap);
 
 	border-radius: 6px;
 
@@ -45,15 +48,16 @@
 	height: var(--size);
 	min-width: var(--size);
 	min-height: var(--size);
-	max-width: fit-content;
 
-	/* overflow: hidden; */
+	overflow: hidden;
+
+	transition: all var(--transition-speed) ease-in-out;
 }
 
 .button:hover .button-content {
 	cursor: pointer;
-
-	width: fit-content;
+	width: calc(var(--size) + var(--gap) + var(--text-max-width));
+	transition-delay: var(--timeout);
 }
 
 .container {
@@ -71,11 +75,16 @@
 }
 
 .content {
+	position: relative;
+
 	display: flex;
 	justify-content: center;
 	align-items: center;
 
-	padding: var(--space);
+	border-radius: 6px;
+
+	height: var(--size);
+	min-height: var(--size);
 }
 
 .icon-container,
@@ -124,7 +133,7 @@
 	stroke-dasharray: 100;
 	stroke-dashoffset: 0;
 
-	animation: draw var(--timeout) ease-out;
+	animation: draw var(--timeout) ease-in-out;
 }
 
 .icon-copied {
@@ -137,65 +146,61 @@
 }
 
 .text-container {
-	max-width: 0%;
-	transition: all calc(var(--transition-speed) * 2) ease-in;
+	width: var(--text-width);
+	/* width: 0px; */
+
+	overflow: hidden;
+	transition: all calc(var(--transition-speed) * 1) ease-out;
 }
 
 .button:hover .text-container {
-	max-width: 100%;
-	transition: all var(--transition-speed) ease-in;
+	width: var(--text-width);
 }
 
 .text-content {
-	display: flex;
+	width: 100%;
 
-	width: fit-content;
-
-	overflow: hidden;
-
-	/* outline: 1px solid blue; */
+	transition: all calc(var(--transition-speed) * 1) ease-out;
 }
 
 .text {
-	text-align: end;
+	position: absolute;
 
-	transform: translateX(200%);
+	padding: var(--space);
 
-	width: fit-content;
-
-	overflow: hidden;
-
-	transition: all var(--transition-speed) ease-out;
-
-	/* outline: 1px solid red; */
+	transition: all var(--transition-speed) ease-in-out;
 }
 
-.button:hover .text {
+.text-ready {
+	transform: translateX(100%);
+}
+
+.button:hover .text-ready {
 	transform: translateX(0%);
 }
 
-.button[data-status='READY'] .text-ready {
-	max-width: 100%;
-}
-
-.button[data-status='READY'] .text-copied {
-	transform: translateX(200%);
+.text-copied {
+	transform: translateX(-100%);
 }
 
 .button[data-status='COPIED'] .text-copied {
 	transform: translateX(0%);
-	max-width: 100%;
-	transition-delay: var(--transition-speed);
 }
 
-.button[data-status='READY'] .text-error {
-	transform: translateX(-200%);
+.button[data-status='COPIED'] .text-ready {
+	transform: translateX(100%);
+}
+
+.text-error {
+	transform: translateX(100%);
 }
 
 .button[data-status='ERROR'] .text-error {
 	transform: translateX(0%);
-	max-width: 100%;
-	transition-delay: var(--transition-speed);
+}
+
+.button[data-status='ERROR'] .text-ready {
+	transform: translateX(-100%);
 }
 
 /* .tooltip {

@@ -1,9 +1,10 @@
 import clsx from 'clsx';
 
 import { CopyIcon, CheckIcon, XIcon } from '@/icons';
-import { useClipboard, useStyles } from '@/hooks';
+import { useClipboard, useRefWidth, useStyles } from '@/hooks';
 
 import styles from './style.module.css';
+import { useEffect, useState } from 'react';
 
 export interface CopyButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 	valueToCopy: string;
@@ -14,6 +15,18 @@ export interface CopyButtonProps extends React.ButtonHTMLAttributes<HTMLButtonEl
 export const CopyButton = ({ valueToCopy, size = 'medium', timeout = 1500, ...props }: CopyButtonProps) => {
 	const { copy, status } = useClipboard(timeout);
 	const { prefix } = useStyles(styles);
+
+	const [textWidth, setTextWidth] = useState(0);
+
+	const [readyTextRef, readyTextWidth] = useRefWidth<HTMLSpanElement>();
+	const [copiedTextRef, copiedTextWidth] = useRefWidth<HTMLSpanElement>();
+	const [errorTextRef, errorTextWidth] = useRefWidth<HTMLSpanElement>();
+
+	useEffect(() => {
+		if (status === 'READY') setTextWidth(readyTextWidth);
+		if (status === 'COPIED') setTextWidth(copiedTextWidth);
+		if (status === 'ERROR') setTextWidth(errorTextWidth);
+	}, [status, readyTextWidth, copiedTextWidth, errorTextWidth]);
 
 	const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
 		if (status === 'READY') {
@@ -33,7 +46,9 @@ export const CopyButton = ({ valueToCopy, size = 'medium', timeout = 1500, ...pr
 
 	const inlineStyles = {
 		[prefix('--size')]: `${typeof size === 'number' ? size : sizeMap[size]}px`,
-		[prefix('--timeout')]: `${timeout}ms`
+		[prefix('--timeout')]: `${timeout}ms`,
+		[prefix('--text-width')]: `${textWidth}px`,
+		[prefix('--text-max-width')]: `${Math.max(readyTextWidth, copiedTextWidth, errorTextWidth)}px`
 	} as React.CSSProperties;
 
 	return (
@@ -41,9 +56,15 @@ export const CopyButton = ({ valueToCopy, size = 'medium', timeout = 1500, ...pr
 			<span className={styles['button-content']}>
 				<span className={clsx(styles.container, styles['text-container'])}>
 					<span className={clsx(styles.content, styles['text-content'])}>
-						<span className={clsx(styles.text, styles['text-copied'])}>Copied!</span>
-						<span className={clsx(styles.text, styles['text-ready'])}>Copy</span>
-						<span className={clsx(styles.text, styles['text-error'])}>Error</span>
+						<span ref={copiedTextRef} className={clsx(styles.text, styles['text-copied'])}>
+							Copied!
+						</span>
+						<span ref={readyTextRef} className={clsx(styles.text, styles['text-ready'])}>
+							Copy
+						</span>
+						<span ref={errorTextRef} className={clsx(styles.text, styles['text-error'])}>
+							Error
+						</span>
 					</span>
 				</span>
 
