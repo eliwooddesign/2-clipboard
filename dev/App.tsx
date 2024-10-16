@@ -18,7 +18,7 @@ export const App = () => {
 					<h1>CopyButton</h1>
 					<div className='content'>
 						<div className='wrapper'>
-							{/* <p>{LOREM}</p> */}
+							<p>1200 Main St. Unit 1A</p>
 							<CopyButton valueToCopy='Copied from CopyButton' />
 						</div>
 					</div>

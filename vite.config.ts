@@ -7,19 +7,24 @@ import browserslist from 'browserslist';
 import react from '@vitejs/plugin-react-swc';
 import dts from 'vite-plugin-dts';
 
-import { peerDependencies } from './package.json';
+import { peerDependencies, name } from './package.json';
 
 export default defineConfig({
 	build: {
 		target: 'esnext',
 
 		lib: {
+			name,
 			entry: resolve(__dirname, join('src', 'index.ts')),
 			fileName: 'index',
 			formats: ['es', 'umd', 'cjs']
 		},
 
 		rollupOptions: {
+			output: {
+				dir: 'dist'
+			},
+
 			external: ['react/jsx-runtime', ...Object.keys(peerDependencies)]
 		},
 
@@ -45,5 +50,7 @@ export default defineConfig({
 		}
 	},
 
-	plugins: [react(), dts({ rollupTypes: true })]
+	plugins: [react(), dts({ rollupTypes: true })],
+
+	mode: 'production'
 });

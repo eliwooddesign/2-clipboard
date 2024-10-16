@@ -57,13 +57,13 @@ body,
 	padding: 8px;
 	margin: 0;
 
-	outline: 1px solid green;
+	/* outline: 1px solid green; */
 }
 
 .wrapper p {
 	box-sizing: border-box;
 
-	padding: 0;
+	padding: 8px;
 	margin: 0;
 
 	/* outline: 1px solid blue; */
