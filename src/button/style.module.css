@@ -71,11 +71,17 @@
 	justify-content: center;
 	align-items: center;
 
-	background: light-dark(hsla(0, 0%, 0%, 0.06), hsla(0, 0%, 100%, 0.04));
+	/* background-color: light-dark(hsla(0, 0%, 0%, 0.06), hsla(0, 0%, 100%, 0.04)); */
+	background-color: hsla(0, 0%, 50%, 0.1);
 	border-radius: 6px;
 
 	height: var(--size);
 	min-height: var(--size);
+}
+
+.button:hover .container {
+	/* background-color: light-dark(hsla(0, 0%, 0%, 0.18), hsla(0, 0%, 100%, 0.12)); */
+	background-color: hsla(0, 0%, 50%, 0.25);
 }
 
 .content {
@@ -110,16 +116,18 @@
 	stroke: currentColor;
 	fill: transparent;
 
-	color: light-dark(hsla(0, 0%, 75%), hsla(0, 0%, 33%));
-
 	width: var(--icon-size);
 	height: var(--icon-size);
 
 	transition: opacity var(--transition-speed) ease-out;
 }
 
-.button:hover .icon-ready {
-	color: light-dark(hsla(0, 0%, 50%), hsla(0, 0%, 66%));
+.icon-ready * {
+	opacity: 0.33;
+}
+
+.button:hover .icon-ready * {
+	opacity: 0.66;
 }
 
 .button:hover .icon {

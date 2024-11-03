@@ -5,6 +5,7 @@ import { browserslistToTargets } from 'lightningcss';
 import browserslist from 'browserslist';
 
 import react from '@vitejs/plugin-react-swc';
+import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js';
 import dts from 'vite-plugin-dts';
 
 import { peerDependencies, name } from './package.json';
@@ -22,7 +23,12 @@ export default defineConfig({
 
 		rollupOptions: {
 			output: {
-				dir: 'dist'
+				dir: 'dist',
+				assetFileNames: 'style.css',
+				globals: {
+					react: 'react',
+					'react/jsx-runtime': 'jsxRuntime'
+				}
 			},
 
 			external: ['react/jsx-runtime', ...Object.keys(peerDependencies)]
@@ -50,7 +56,7 @@ export default defineConfig({
 		}
 	},
 
-	plugins: [react(), dts({ rollupTypes: true })],
+	plugins: [react(), dts({ rollupTypes: true }), cssInjectedByJsPlugin()],
 
 	mode: 'production'
 });
